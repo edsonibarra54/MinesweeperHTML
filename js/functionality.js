@@ -16,14 +16,56 @@ function begin(){
         }
     }
 
-    printBoard();
     addRandomMines();
+    printBoard();
 }
 
 function printBoard(){
     for(var i = 0 ; i < tam ; i++){
         console.log(board[i])
     }
+}
+
+function increaseAround(posI, posJ){
+    //Top
+    if(posJ - 1 >= 0)
+        if(board[posI][posJ-1] != -1)
+            board[posI][posJ-1]++;
+    
+    //Bottom
+    if(posJ + 1 < tam)
+        if(board[posI][posJ+1] != -1)
+            board[posI][posJ+1]++;
+
+    //Left
+    if(posI - 1 >= 0)
+        if(board[posI-1][posJ] != -1)
+            board[posI-1][posJ]++;
+
+    //Right
+    if(posI + 1 < tam)
+        if(board[posI+1][posJ] != -1)
+            board[posI+1][posJ]++;
+
+    //Top left
+    if(posI - 1 >= 0 && posJ - 1 >= 0)
+        if(board[posI-1][posJ-1] != -1)
+            board[posI-1][posJ-1]++;
+
+    //Top right
+    if(posI + 1 < tam && posJ - 1 >= 0)
+        if(board[posI+1][posJ-1] != -1)
+            board[posI+1][posJ-1]++;
+
+    //Bottom left
+    if(posI - 1 >= 0 && posJ + 1 < tam)
+        if(board[posI-1][posJ+1] != -1)
+            board[posI-1][posJ+1]++;
+
+    //Bottom right
+    if(posI + 1 < tam && posJ + 1 < tam)
+        if(board[posI+1][posJ+1] != -1)
+            board[posI+1][posJ+1]++;
 }
 
 function addRandomMines(){
@@ -39,6 +81,7 @@ function addRandomMines(){
         }
         else{
             board[i][j] = -1;
+            increaseAround(i, j);
         }
     }
 }
