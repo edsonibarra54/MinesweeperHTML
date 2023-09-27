@@ -92,5 +92,18 @@ function flipBox(posI, posJ){
     }
     else{
         document.getElementById(posI+posJ).innerHTML = board[posI][posJ]
+        board[posI][posJ] = 1000;
+
+        if(won() == true){
+            alert("You won!");
+        }
     }
+}
+
+function won(){
+    for(var i = 0 ; i < tam ; i++)
+        for(var j = 0 ; j < tam ; j++)
+            if(board[i][j] != 1000 && board[i][j] != -1)
+                return false;
+    return true;
 }
