@@ -2,7 +2,13 @@ var tam = 10;
 var mines = 10;
 var board;
 
+var name;
+var timer;
+var seconds = 0;
+
 function begin(){
+    name = prompt("Whats your name?")
+
     //Creating board
     board = new Array(tam);
     for(var i = 0 ; i < tam ; i++){
@@ -18,6 +24,13 @@ function begin(){
 
     addRandomMines();
     printBoard();
+    document.getElementsByClassName("name")[0].innerHTML = name;
+    timer = window.setInterval(
+        function(){
+            seconds++;
+            document.getElementsByClassName("time")[0].innerHTML = seconds
+        }, 1000
+    );
 }
 
 function printBoard(){
@@ -88,11 +101,22 @@ function addRandomMines(){
 
 function flipBox(posI, posJ){
     if(board[posI][posJ] == -1){
-        alert("You lost!");
+        for(var i = 0 ; i < tam ; i++)
+            for(var j = 0 ; j < tam ; j++)
+                if( board[i][j] == -1)
+                    document.getElementById(i.toString()+j.toString()).innerHTML = "<img src='img/mine.png' />";
+        
+        setTimeout(function() {
+            if (confirm("You lost!")) {
+                location.reload();
+            }
+        }, 200);
     }
     else{
-        document.getElementById(posI+posJ).innerHTML = board[posI][posJ]
-        board[posI][posJ] = 1000;
+        if(board[posI][posJ] != 1000){
+            document.getElementById(posI+posJ).innerHTML = board[posI][posJ]
+            board[posI][posJ] = 1000;
+        }
 
         if(won() == true){
             alert("You won!");
