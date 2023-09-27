@@ -87,5 +87,10 @@ function addRandomMines(){
 }
 
 function flipBox(posI, posJ){
-    
+    if(board[posI][posJ] == -1){
+        alert("You lost!");
+    }
+    else{
+        document.getElementById(posI+posJ).innerHTML = board[posI][posJ]
+    }
 }
